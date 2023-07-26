@@ -1,4 +1,4 @@
-import { store } from "./index.js";
+import { archivedTodosStore } from "./store/index.js";
 
 const createElement = (tag, className, innerHtml, style, value) => {
   const element = document.createElement(tag);
@@ -15,7 +15,7 @@ const createElement = (tag, className, innerHtml, style, value) => {
   return element;
 };
 
-export const insertRow = (todo) => {
+export const insertRow = (todo, options) => {
   const table = document.querySelector("table");
   const row = table.insertRow();
 
@@ -35,7 +35,11 @@ export const insertRow = (todo) => {
   const categorySelect = createElement("select", "form-control", "", "none");
   const firstOption = createElement("option", "", "Task", "", "Task");
   const secondOption = createElement(
-    "option", "", "Random Thought", "", "Random Thought"
+    "option",
+    "",
+    "Random Thought",
+    "",
+    "Random Thought"
   );
   const thirdOption = createElement("option", "", "Idea", "", "Idea");
   categorySelect.append(firstOption, secondOption, thirdOption);
@@ -55,20 +59,28 @@ export const insertRow = (todo) => {
   const actions = row.insertCell();
 
   const archiveButton = createElement(
-    "button", "btn btn-outline-warning", "Archive"
+    "button",
+    "btn btn-outline-warning",
+    "Archive"
   );
   archiveButton.onclick = () => {
-    store.add(todo);
+    archivedTodosStore.add(todo);
   };
 
   const deleteButton = createElement(
-    "button", "btn btn-outline-danger", "Delete"
+    "button",
+    "btn btn-outline-danger",
+    "Delete"
   );
   deleteButton.onclick = () => {
     row.parentNode.removeChild(row);
+    if (options && options.isArchivedPage) {
+      archivedTodosStore.remove(todo);
+    }
   };
 
   const editButton = createElement("button", "btn btn-outline-primary", "Edit");
+
   editButton.onclick = () => {
     if (nameInput.style.display === "none") {
       nameInput.style.display = "block";
@@ -106,8 +118,16 @@ export const insertRow = (todo) => {
 
       datesInput.style.display = "none";
       datesText.style.display = "block";
+
+      if (options && options.isArchivedPage) {
+        archivedTodosStore.edit(todo);
+      }
     }
   };
 
-  actions.append(archiveButton, editButton, deleteButton);
+  if (!options || !options.isArchivedPage) {
+    actions.append(archiveButton, editButton, deleteButton);
+  } else {
+    actions.append(editButton, deleteButton);
+  }
 };

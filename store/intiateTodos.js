@@ -58,3 +58,11 @@ export const initiateTodos = () => {
     },
   ];
 };
+
+export const initiateArchivedTodos = () => {
+  const json = localStorage.getItem("archivedTodos");
+  if (json) {
+    return JSON.parse(json);
+  }
+  return [];
+};
