@@ -16,6 +16,14 @@ const createElement = (tag, className, innerHtml, style, value) => {
 };
 
 export const insertRow = (todo, options) => {
+  let countTotals = () => {};
+
+  if (!options || !options.isArchivedPage) {
+    import("./active.js").then(({ calculateTotals }) => {
+      countTotals = calculateTotals;
+    });
+  }
+
   const table = document.querySelector("table");
   const row = table.insertRow();
 
@@ -65,6 +73,9 @@ export const insertRow = (todo, options) => {
   );
   archiveButton.onclick = () => {
     archivedTodosStore.add(todo);
+    todo.category = null;
+    row.parentNode.removeChild(row);
+    countTotals();
   };
 
   const deleteButton = createElement(
@@ -76,7 +87,10 @@ export const insertRow = (todo, options) => {
     row.parentNode.removeChild(row);
     if (options && options.isArchivedPage) {
       archivedTodosStore.remove(todo);
+    } else {
+      todo.category = null;
     }
+    countTotals();
   };
 
   const editButton = createElement("button", "btn btn-outline-primary", "Edit");
@@ -122,6 +136,7 @@ export const insertRow = (todo, options) => {
       if (options && options.isArchivedPage) {
         archivedTodosStore.edit(todo);
       }
+      countTotals();
     }
   };
 

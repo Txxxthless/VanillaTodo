@@ -12,11 +12,14 @@ export const activeTodosStore = {
 
 export const archivedTodosStore = {
   value: archivedTodos,
+  getValue: () => {
+    return JSON.parse(localStorage.getItem("archivedTodos")) || null;
+  },
   add: (value) => {
     const lastElement = archivedTodos[archivedTodos.length - 1];
     const id = lastElement ? lastElement.id + 1 : 1;
     value.id = id;
-    archivedTodos = [...archivedTodos, value];
+    archivedTodos = [...archivedTodos, { ...value }];
     localStorage.setItem("archivedTodos", JSON.stringify(archivedTodos));
     console.log(archivedTodos);
   },
