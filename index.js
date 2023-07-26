@@ -1,7 +1,8 @@
 import { insertRow } from "./insertRow.js";
 import { initiateTodos } from "./intiateTodos.js";
 
-let todos = initiateTodos();
+const initialTodos = initiateTodos();
+let todos = [];
 
 export const store = {
   value: todos,
@@ -9,30 +10,25 @@ export const store = {
     todos = todos.filter(expression);
     localStorage.setItem("todos", JSON.stringify(todos));
   },
-  set: (value) => {
-    todos = value;
-    localStorage.setItem("todos", JSON.stringify(todos));
-  },
   add: (value) => {
     const lastElement = todos[todos.length - 1];
-    const id = lastElement.id + 1;
+    const id = lastElement ? lastElement.id + 1 : 1;
     value.id = id;
     todos = [...todos, value];
-    insertRow(value);
     localStorage.setItem("todos", JSON.stringify(todos));
     console.log(todos);
   },
 };
 
 const onStart = () => {
-  for (let todo of todos) {
+  for (let todo of initialTodos) {
     insertRow(todo);
   }
 
   const createButton = document.querySelector("#create-button");
 
   createButton.onclick = () => {
-    store.add({
+    insertRow({
       name: "Doo",
       created: Date.now(),
       category: "Task",

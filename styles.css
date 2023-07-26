@@ -1,27 +1,8 @@
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+html {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-td,
-th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-.container {
-  position: relative;
-}
-
-.create-button {
-  position: absolute;
-  top: 50px;
-  width: 10%;
-  right: 10px;
+button {
+  margin-right: 15px;
 }

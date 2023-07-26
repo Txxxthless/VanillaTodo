@@ -1,12 +1,4 @@
 export const initiateTodos = () => {
-  const json = localStorage.getItem("todos");
-
-  if (json) {
-    const todos = JSON.parse(json);
-    console.log(todos);
-    return todos;
-  }
-
   return [
     {
       id: 1,
