@@ -82,7 +82,7 @@ const onStart = () => {
       content: "Bar",
       dates: "",
     };
-    activeTodos.add(todo);
+    activeTodosStore.add(todo);
     insertRow(todo);
   };
 };

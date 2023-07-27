@@ -118,8 +118,15 @@ export const insertRow = (todo, options) => {
       todo.content = contentInput.value;
       contentText.innerHTML = contentInput.value;
 
-      todo.dates = datesInput.value;
-      datesText.innerHTML = datesInput.value;
+      const dates = datesInput.value.split(" ");
+      todo.dates = "";
+      datesText.innerHTML = "";
+      for (let date of dates) {
+        if (new Date(date) !== "Invalid Date" && !isNaN(new Date(date))) {
+          todo.dates += " " + date;
+          datesText.innerHTML += " " + date;
+        }
+      }
 
       nameInput.style.display = "none";
       nameText.style.display = "block";

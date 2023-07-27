@@ -6,7 +6,7 @@ export const initiateTodos = () => {
       created: new Date(2023, 7, 24),
       category: "Task",
       content: "Bread",
-      dates: "",
+      dates: "2023-07-27 2023-07-29",
     },
     {
       id: 2,
@@ -22,7 +22,7 @@ export const initiateTodos = () => {
       created: new Date(2023, 5, 10),
       category: "Task",
       content: "Bar",
-      dates: "",
+      dates: "2023-08-12 2023-08-20",
     },
     {
       id: 4,
@@ -30,7 +30,7 @@ export const initiateTodos = () => {
       created: new Date(2023, 7, 7),
       category: "Idea",
       content: "Create new feature",
-      dates: "",
+      dates: "2023-08-12",
     },
     {
       id: 5,
@@ -46,7 +46,7 @@ export const initiateTodos = () => {
       created: new Date(2023, 7, 20),
       category: "Task",
       content: "Create new feature",
-      dates: "",
+      dates: "2023-07-20 2023-07-23",
     },
     {
       id: 7,
