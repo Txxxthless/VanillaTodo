@@ -135,7 +135,7 @@ export const insertRow = (todo, options) => {
           todo.dates += " " + date;
           datesText.innerHTML += " " + date;
         } catch (ex) {
-          console.log(ex);
+          console.log(ex.message);
         }
       }
 
