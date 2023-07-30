@@ -15,6 +15,13 @@ const createElement = (tag, className, innerHtml, style, value) => {
   return element;
 };
 
+const tryParseToDate = (date) => {
+  if (new Date(date).toDateString() !== "Invalid Date") {
+    return date;
+  }
+  throw new Error("String is not date");
+};
+
 export const insertRow = (todo, options) => {
   let countTotals = () => {};
 
@@ -121,10 +128,14 @@ export const insertRow = (todo, options) => {
       const dates = datesInput.value.split(" ");
       todo.dates = "";
       datesText.innerHTML = "";
+
       for (let date of dates) {
-        if (new Date(date) !== "Invalid Date" && !isNaN(new Date(date))) {
+        try {
+          tryParseToDate(date);
           todo.dates += " " + date;
           datesText.innerHTML += " " + date;
+        } catch (ex) {
+          console.log(ex);
         }
       }
 
